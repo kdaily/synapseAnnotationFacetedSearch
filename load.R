@@ -11,7 +11,7 @@ projectId <- "syn2787333"
 colsUsed <- c("study","group","platform","dataType","fileType")
 
 queryString <- sprintf("select id,%s from file where projectId=='%s'",
-                       paste(colsToUse, collapse=","),
+                       paste(colsUsed, collapse=","),
                        projectId)
 dfData <- synQuery(queryString, 250)$collectAll()
 colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
