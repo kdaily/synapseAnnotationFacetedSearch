@@ -81,11 +81,14 @@ shinyServer(function(input, output, session) {
                        # colnames(foo) <- NULL
                        DT::renderDataTable(foo, server = FALSE,
                                            rownames=FALSE,
+                                           colnames=NULL,
                                            options = list(
                                              lengthChange = FALSE, dom='t',
                                              ordering=FALSE,
                                              autoWidth = TRUE,
-                                             nowrap=FALSE
+                                             nowrap=FALSE,
+                                             columnDefs = list(list(targets = 0, visible=FALSE),
+                                                               list(width='30px', targets = 1))
                                            ),
                                            escape=1)
                      })
@@ -112,7 +115,7 @@ shinyServer(function(input, output, session) {
   
   # render the table containing shiny inputs 
   output$x1 <- shiny::renderUI({
-    lapply(colsUsed, function(x) {list(h4(x), dataTableOutput(x))})
+    lapply(colsUsed, function(x) {list(h5(x), dataTableOutput(x), hr())})
   })
   
   filterMyTable <- reactive({

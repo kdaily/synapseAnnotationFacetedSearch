@@ -15,7 +15,7 @@ shinyUI(fluidPage(
   
   # Sidebar with a slider input for number of bins
   sidebarLayout(
-    sidebarPanel(width=4,
+    sidebarPanel(width=2,
                  uiOutput("x1")
     ),
     
