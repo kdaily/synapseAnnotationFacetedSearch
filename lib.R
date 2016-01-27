@@ -1,4 +1,4 @@
-barTxt <-'<div id="progress" class="graph"><div id="bar" style="width:%s%%"><p>%s</p></div></div>'
+barTxt <-'<div id="progress" class="graph"><div id="bar" style="width:%s%%"><p><span style="float: left; text-align: left">%s</span></p></div></div>'
 
 makeDFTable <- function(df) {
   df %>%
