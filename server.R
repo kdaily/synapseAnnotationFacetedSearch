@@ -20,11 +20,11 @@ shinyServer(function(input, output, session) {
     
     synapseLogin(sessionToken=input$cookie)
     
-    # observe({
-    #   withProgress(message = 'Making plot', {
-    source("load.R")
-    #   })
-    # })
+    observe({
+      withProgress(message = 'Making plot', {
+        source("load.R", local=TRUE)
+      })
+    })
     
     # Save state of selected rows to compare to identify changes
     selectedRows <- reactiveValues()
