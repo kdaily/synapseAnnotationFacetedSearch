@@ -146,7 +146,7 @@ shinyServer(function(input, output, session) {
                                      lengthChange = FALSE, 
                                      pageLength=25,
                                      dom='tp',
-                                     ordering=FALSE,
+                                     ordering=TRUE,
                                      autoWidth = TRUE,
                                      nowrap=FALSE
                                    ),
