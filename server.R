@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
     
     output$username <- shiny::renderUI({
       p <- synapseClient::UserProfile()
-      h3(sprintf("Logged in as %s"), p@userName)
+      h3(sprintf("Logged in as %s", p@userName))
     })
     
     # Update data in each of the filtering tables based on currently selected
