@@ -15,8 +15,11 @@ source("lib.R")
 # dfData <- synQuery(queryString, 250)$collectAll()
 # colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
 # save(dfData, file="dfData.RData")
-
 load("dfData.RData")
+dfData <- dfData %>%
+  mutate(id=sprintf("<a href='https://www.synapse.org/#!Synapse:%s'>%s</a>", id, id)) %>% 
+  select(id, everything())
+
 dfOrig <- dlply(dfData %>% melt(id.vars="id"), .(variable), makeDFTable)
 
 colsUsed <- setdiff(colnames(dfData), "id")
