@@ -1,10 +1,3 @@
-library(shiny) 
-library(DT)
-library(plyr)
-library(dplyr)
-library(reshape2)
-
-
 # synapseLogin()
 
 projectId <- "syn2787333"
