@@ -154,11 +154,12 @@ shinyServer(function(input, output, session) {
     })
     
     output$x2 <- DT::renderDataTable(filterMyTable(),
+                                     extensions = 'ColVis',
                                      rownames=FALSE,
                                      options = list(
                                        lengthChange = FALSE, 
                                        pageLength=25,
-                                       dom='tp',
+                                       dom='C<"clear">tp',
                                        ordering=TRUE,
                                        autoWidth = TRUE,
                                        nowrap=FALSE
