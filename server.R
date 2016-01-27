@@ -17,7 +17,7 @@ shinyServer(function(input, output, session) {
   foo <- observeEvent(input$cookie, {
     
     
-    synapseLogin(sessionToken=input$cookie)
+    synapseClient::synapseLogin(sessionToken=input$cookie)
     
     source("load.R")
     
