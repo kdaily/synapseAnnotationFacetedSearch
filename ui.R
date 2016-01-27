@@ -19,14 +19,14 @@ shinyUI(fluidPage(
     tags$link(rel = "stylesheet", type = "text/css", href = "bar.css")
   ),
   
-  # Sidebar with a slider input for number of bins
+  # Sidebar
   sidebarLayout(
-    sidebarPanel(width=2,
+    sidebarPanel(width=3,
                  uiOutput("x1")
     ),
     
-    # Show a plot of the generated distribution
-    mainPanel(width=10,
+    # Main table
+    mainPanel(width=9,
               DT::dataTableOutput("x2"),
               hr(),
               textOutput("username")
