@@ -32,7 +32,7 @@ shinyServer(function(input, output, session) {
     lapply(colsUsed, function(x) selectedRows[[x]] <- NULL)
     
     output$username <- shiny::renderText({
-      p <- synapseClient::UserProfile()
+      p <- synapseClient::synGetUserProfile()
       sprintf("Logged in as %s", p@userName)
     })
     
