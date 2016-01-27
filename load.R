@@ -6,7 +6,7 @@ library(reshape2)
 
 library(synapseClient)
 
-synapseLogin()
+# synapseLogin()
 
 projectId <- "syn2787333"
 colsUsed <- c("study","group","platform","dataType","fileType")
