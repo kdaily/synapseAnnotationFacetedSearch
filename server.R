@@ -140,7 +140,9 @@ shinyServer(function(input, output, session) {
   output$x2 <- DT::renderDataTable(filterMyTable(),
                                    rownames=FALSE,
                                    options = list(
-                                     lengthChange = FALSE, dom='tp',
+                                     lengthChange = FALSE, 
+                                     pageLength=25,
+                                     dom='tp',
                                      ordering=FALSE,
                                      autoWidth = TRUE,
                                      nowrap=FALSE
