@@ -27,8 +27,9 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(width=10,
-              uiOutput("username"),
-              DT::dataTableOutput("x2")
+              DT::dataTableOutput("x2"),
+              hr(),
+              textOutput("username")
     )
   )
 ))

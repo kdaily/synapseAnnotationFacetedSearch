@@ -31,9 +31,9 @@ shinyServer(function(input, output, session) {
     # Initialize the selected rows to NULL
     lapply(colsUsed, function(x) selectedRows[[x]] <- NULL)
     
-    output$username <- shiny::renderUI({
+    output$username <- shiny::renderText({
       p <- synapseClient::UserProfile()
-      h3(sprintf("Logged in as %s", p@userName))
+      sprintf("Logged in as %s", p@userName)
     })
     
     # Update data in each of the filtering tables based on currently selected
