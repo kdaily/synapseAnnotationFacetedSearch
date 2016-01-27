@@ -18,7 +18,7 @@ colsUsed <- c("study","group","platform","dataType","fileType")
 # save(dfData, file="dfData.RData")
 load("dfData.RData")
 dfData <- dfData %>%
-  mutate(id=sprintf("<a href='https://www.synapse.org/#!Synapse:%s'>%s</a>", id, id))
+  mutate(id=sprintf("<a href='https://www.synapse.org/#!Synapse:%s' target='_blank'>%s</a>", id, id))
 
 dfData <- dfData[, c("id", colsUsed)]
 
