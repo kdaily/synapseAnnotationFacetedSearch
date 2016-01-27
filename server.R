@@ -9,12 +9,18 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
   
+  source("lib.R")
+  
   session$sendCustomMessage(type="readCookie",
                             message=list(name='org.sagebionetworks.security.user.login.token'))
   
   foo <- observeEvent(input$cookie, {
     
+    
     synapseLogin(sessionToken=input$cookie)
+    
+    source("load.R")
+    
     # Save state of selected rows to compare to identify changes
     selectedRows <- reactiveValues()
     
