@@ -12,15 +12,21 @@ shinyServer(function(input, output, session) {
   # Save state of selected rows to compare to identify changes
   selectedRows <- reactiveValues()
   
+  # Save state of filtered data
+  filteredData <- reactiveValues()
+  
   # Initialize the selected rows to NULL
   lapply(colsUsed, function(x) selectedRows[[x]] <- NULL)
   
+  # Update data in each of the filtering tables based on currently selected
+  # things
   updateFilterTables <- reactive({
     
     lapply(colsUsed,
            function(x) {
              input[[paste0(x, '_rows_selected')]]})
     
+    blah <- isolate(filteredData[['current']])
     myFilteredDF <- isolate(filterMyTable())
     
     myVals <- isolate(reactiveValuesToList(selectedRows))
@@ -34,34 +40,30 @@ shinyServer(function(input, output, session) {
     
     names(sameSelectedRows) <- colsUsed
     
-    # print(sprintf("you clicked on %s", names(which(sameSelectedRows != TRUE))))
-    
-    
     res <- lapply(colsUsed,
                   function(x) {
-                    rows <- input[[paste0(x, '_rows_selected')]]
+                    print(sprintf("you clicked on %s inside %s", names(which(sameSelectedRows != TRUE)), x))
                     
-                    
-                    # The selected rows didn't change, so this table wasn't clicked.
-                    # Hence, it's percentages should be updated reflecting the current
-                    # filtered data
-                    # if (sameSelectedRows[[x]] == TRUE) {
-                    #   # print(sprintf("Row %s was not clicked, so updating", x))
-                    
-                    # There are rows selected - any other rows should be zero
-                    if (!is.null(rows)) {
-                      dfTableUpdate(dfOrig[[x]], rows, x, myFilteredDF)
+                    if (nrow(myFilteredDF) == 0) {
+                      print(sprintf("Table is empty in %s", x))
+                      
+                      dfTableUpdate(dfOrig[[x]], rows, x, blah)
                     }
-                    # There are no rows currently selected
                     else {
-                      dfTableUpdate(dfOrig[[x]], 1:nrow(dfOrig[[x]]), x, myFilteredDF)
-                    }
-                    
-                    # }
-                    # else {
-                    #   dfOrig[[x]]
-                    # }
+                      rows <- input[[paste0(x, '_rows_selected')]]
+                      print(paste(rows, collapse=","))
+                      
+                      # There are rows selected - any other rows should be zero
+                      if (!is.null(rows)) {
+                        dfTableUpdate(dfOrig[[x]], rows, x, myFilteredDF)
+                      }
+                      # There are no rows currently selected
+                      else {
+                        dfTableUpdate(dfOrig[[x]], 1:nrow(dfOrig[[x]]), x, myFilteredDF)
+                      }
+                    }                  
                   })
+    
     names(res) <- colsUsed
     
     res
@@ -71,10 +73,12 @@ shinyServer(function(input, output, session) {
     
     tmp <- updateFilterTables()
     
+    myFilteredDF <- isolate(filterMyTable())
+    
     newDFs <- lapply(colsUsed,
                      function(x) {
                        foo <- tmp[[x]] %>% select(-n)
-                       colnames(foo) <- NULL
+                       # colnames(foo) <- NULL
                        DT::renderDataTable(foo, server = FALSE,
                                            rownames=FALSE,
                                            options = list(
@@ -92,9 +96,8 @@ shinyServer(function(input, output, session) {
   
   observe({
     
-    
     tmp <- myDF()
-    
+
     lapply(colsUsed,
            function(x) {
              rows <- input[[paste0(x, '_rows_selected')]]
@@ -127,6 +130,8 @@ shinyServer(function(input, output, session) {
       }
       
     }
+    
+    filteredData[['current']] <- res
     
     res
     
