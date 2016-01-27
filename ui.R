@@ -10,6 +10,12 @@ library(shiny)
 shinyUI(fluidPage(
 
   tags$head(
+    singleton(
+      includeScript("www/readCookie.js")
+    )
+  ),
+  
+  tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "bar.css")
   ),
   
