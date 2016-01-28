@@ -7,6 +7,7 @@
 
 library(shiny)
 library(synapseClient)
+library(yaml)
 
 shinyServer(function(input, output, session) {
   
@@ -17,9 +18,15 @@ shinyServer(function(input, output, session) {
   
   foo <- observeEvent(input$cookie, {
     
+    if (!is.null(input$cookie)) {
     
-    synapseLogin(sessionToken=input$cookie)
-    
+      synapseLogin(sessionToken=input$cookie)
+    }
+    else {
+      config <- yaml.load_file("public_user.yml")
+      synapseLogin(username = config$username,
+                   password = config$password)
+    }
     # observe({
     #   withProgress(message = 'Making plot', {
     source("load.R")
