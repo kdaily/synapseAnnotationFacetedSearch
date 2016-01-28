@@ -18,7 +18,7 @@ dfData <- dfData %>%
 
 dfData <- dfData[, c("id", "synapseid", colsUsed)]
 
-dfOrig <- dlply(dfData %>% melt(id.vars="id"), .(variable), makeDFTable)
+dfOrig <- dlply(dfData %>% select(-synapseid) %>% melt(id.vars="id"), .(variable), makeDFTable)
 
 dfOrig <- llply(dfOrig, function(x) x %>% arrange(desc(n)))
 

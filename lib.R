@@ -2,7 +2,7 @@ barTxt <-'<div id="progress" class="graph"><div id="bar" style="width:%s%%"><p><
 
 makeDFTable <- function(df) {
   df %>%
-    dplyr::select(-id, -synapseid, -variable) %>%
+    dplyr::select(-id, -variable) %>%
     dplyr::count(value) %>%
     dplyr::mutate(count=sprintf(barTxt, 100 - round((n / sum(n)) * 100), value, n))
     # dplyr::mutate(pct=sprintf("%s (%s)", n, round((n / sum(n)) * 100)))
