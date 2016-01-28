@@ -16,11 +16,12 @@ colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
 # load("dfData.RData")
 
 dfData <- dfData %>%
-  mutate(id=sprintf("<a href='https://www.synapse.org/#!Synapse:%s' target='_blank'>%s</a>", id, id))
+  mutate(link=sprintf("https://www.synapse.org/#!Synapse:%s", id),
+         synapseid=sprintf("<a href='%s' target='_blank'>%s</a>", link, id))
 
-dfData <- dfData[, c("id", colsUsed)]
+dfData <- dfData[, c("id", "synapseid", "link", colsUsed)]
 
-dfOrig <- dlply(dfData %>% melt(id.vars="id"), .(variable), makeDFTable)
+dfOrig <- dlply(dfData %>% select(-synapseid, -link) %>% melt(id.vars="id"), .(variable), makeDFTable)
 
 dfOrig <- llply(dfOrig, function(x) x %>% arrange(desc(n)))
 

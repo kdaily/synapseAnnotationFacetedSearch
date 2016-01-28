@@ -7,6 +7,7 @@
 
 library(shiny)
 library(synapseClient)
+library(yaml)
 
 shinyServer(function(input, output, session) {
   
@@ -17,9 +18,15 @@ shinyServer(function(input, output, session) {
   
   foo <- observeEvent(input$cookie, {
     
+    if (!is.null(input$cookie)) {
     
-    synapseLogin(sessionToken=input$cookie)
-    
+      synapseLogin(sessionToken=input$cookie)
+    }
+    else {
+      config <- yaml.load_file("public_user.yml")
+      synapseLogin(username = config$username,
+                   password = config$password)
+    }
     # observe({
     #   withProgress(message = 'Making plot', {
     source("load.R")
@@ -101,7 +108,7 @@ shinyServer(function(input, output, session) {
                        function(x) {
                          foo <- tmp[[x]] %>% select(-n)
                          # colnames(foo) <- NULL
-                         DT::renderDataTable(foo, server = FALSE,
+                         DT::renderDataTable(foo, server = TRUE,
                                              rownames=FALSE,
                                              colnames=NULL,
                                              options = list(
@@ -162,7 +169,8 @@ shinyServer(function(input, output, session) {
       
     })
     
-    output$x2 <- DT::renderDataTable(filterMyTable(),
+    output$x2 <- DT::renderDataTable(filterMyTable() %>% select(synapseid, everything(), -id, -link),
+                                     server=TRUE,
                                      extensions = 'ColVis',
                                      rownames=FALSE,
                                      options = list(
@@ -174,7 +182,16 @@ shinyServer(function(input, output, session) {
                                        nowrap=FALSE
                                      ),
                                      escape=0)
-  
+    
+    output$downloadData <- downloadHandler(
+      filename = function() { paste('output', '.csv', sep='') },
+      content = function(file) {
+        write.csv(filterMyTable() %>% select(id, everything(), -synapseid), 
+                  file, 
+                  row.names = FALSE)
+      }
+    )
+    
   })
   
 })

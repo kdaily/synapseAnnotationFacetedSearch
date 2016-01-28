@@ -29,6 +29,7 @@ shinyUI(fluidPage(
     mainPanel(width=9,
               DT::dataTableOutput("x2"),
               hr(),
+              downloadButton('downloadData', 'Download'),
               textOutput("username")
     )
   )
