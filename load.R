@@ -14,7 +14,7 @@ colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
 # load("dfData.RData")
 
 dfData <- dfData %>%
-  mutate(id=sprintf("<a href='https://www.synapse.org/#!Synapse:%s' target='_blank'>%s</a>", id, id))
+  mutate(synapseid=sprintf("<a href='https://www.synapse.org/#!Synapse:%s' target='_blank'>%s</a>", id, id))
 
 dfData <- dfData[, c("id", colsUsed)]
 
