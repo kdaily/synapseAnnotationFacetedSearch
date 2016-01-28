@@ -186,7 +186,9 @@ shinyServer(function(input, output, session) {
     output$downloadData <- downloadHandler(
       filename = function() { paste('output', '.csv', sep='') },
       content = function(file) {
-        write.csv(filterMyTable() %>% select(-synapseid, id, everything()), file)
+        write.csv(filterMyTable() %>% select(-synapseid, id, everything()), 
+                  file, 
+                  row.names = FALSE)
       }
     )
     
