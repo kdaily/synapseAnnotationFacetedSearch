@@ -169,7 +169,7 @@ shinyServer(function(input, output, session) {
       
     })
     
-    output$x2 <- DT::renderDataTable(filterMyTable() %>% select(-id, synapseid, everything()),
+    output$x2 <- DT::renderDataTable(filterMyTable() %>% select(synapseid, everything(), -id, -link),
                                      server=TRUE,
                                      extensions = 'ColVis',
                                      rownames=FALSE,
@@ -186,7 +186,7 @@ shinyServer(function(input, output, session) {
     output$downloadData <- downloadHandler(
       filename = function() { paste('output', '.csv', sep='') },
       content = function(file) {
-        write.csv(filterMyTable() %>% select(-synapseid, id, everything()), 
+        write.csv(filterMyTable() %>% select(id, everything(), -synapseid), 
                   file, 
                   row.names = FALSE)
       }
