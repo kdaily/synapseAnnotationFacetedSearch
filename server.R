@@ -113,6 +113,7 @@ shinyServer(function(input, output, session) {
                                              colnames=NULL,
                                              options = list(
                                                lengthChange = FALSE, dom='t',
+                                               pageLength=nrow(foo),
                                                ordering=FALSE,
                                                autoWidth = TRUE,
                                                nowrap=FALSE,
