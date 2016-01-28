@@ -175,7 +175,14 @@ shinyServer(function(input, output, session) {
                                        nowrap=FALSE
                                      ),
                                      escape=0)
-  
+    
+    output$downloadData <- downloadHandler(
+      filename = function() { paste('output', '.csv', sep='') },
+      content = function(file) {
+        write.csv(filterMyTable(), file)
+      }
+    )
+    
   })
   
 })
