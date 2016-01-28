@@ -16,7 +16,7 @@ colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
 dfData <- dfData %>%
   mutate(synapseid=sprintf("<a href='https://www.synapse.org/#!Synapse:%s' target='_blank'>%s</a>", id, id))
 
-dfData <- dfData[, c("id", colsUsed)]
+dfData <- dfData[, c("id", "synapseid", colsUsed)]
 
 dfOrig <- dlply(dfData %>% melt(id.vars="id"), .(variable), makeDFTable)
 
