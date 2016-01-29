@@ -170,20 +170,19 @@ shinyServer(function(input, output, session) {
       
     })
     
-    output$x2 <- DT::renderDataTable(filterMyTable() %>% select(id, synapseid, everything(), -link),
+    output$x2 <- DT::renderDataTable(filterMyTable() %>% select(synapseid, everything(), -id, -link),
                                      server=FALSE,
                                      extensions = 'ColVis',
                                      rownames=FALSE,
+                                     selection = 'none',
                                      options = list(
                                        lengthChange = FALSE, 
                                        pageLength=25,
                                        dom='C<"clear">tp',
                                        ordering=TRUE,
                                        autoWidth = TRUE,
-                                       nowrap=FALSE,
-                                       columnDefs = list(list(targets = 0, visible=FALSE))
-                                     ),
-                                     escape=1
+                                       nowrap=FALSE),
+                                     escape=FALSE
                                      )
     
     output$downloadData <- downloadHandler(
