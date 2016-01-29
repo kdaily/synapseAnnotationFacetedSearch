@@ -1,10 +1,11 @@
 projectId <- "syn2787333"
 
-colsUsed <- c("study", "organism", "disease",
-              "tissueType", "cellType", "treatmentType",
-              "assay", "assayTarget",
-              "dataType", "dataSubType", 
-              "fileType")
+colsUsed <- c("study", "organism", "disease"#,
+              # "tissueType", "cellType", "treatmentType",
+              # "assay", "assayTarget",
+              # "dataType", "dataSubType", 
+              # "fileType"
+              )
 
 queryString <- sprintf("select id,%s from file where projectId=='%s'",
                        paste(colsUsed, collapse=","),
