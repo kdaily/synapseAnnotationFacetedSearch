@@ -9,9 +9,11 @@ makeDFTable <- function(df) {
   # dplyr::mutate(pct=round((n / sum(n)) * 100))
 }
 
-dfTableUpdate <- function(df, rows, myCol, newFilteredDF) {
+dfTableUpdate <- function(df, rows, myCol, newFilteredDF, newDfOrig=NULL) {
   
-  newDfOrig <- dlply(newFilteredDF %>% melt(id.vars="id"), .(variable), makeDFTable)
+  if (is.null(newDfOrig)) {
+    newDfOrig <- dlply(newFilteredDF %>% melt(id.vars="id"), .(variable), makeDFTable)
+  }
   
   myNewDfOrig <- left_join(df %>% select(value),
                            newDfOrig[[myCol]], by="value")

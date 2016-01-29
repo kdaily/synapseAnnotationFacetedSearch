@@ -57,6 +57,8 @@ shinyServer(function(input, output, session) {
       
       prevFilteredData <- isolate(filteredData[['current']])
       myFilteredDF <- isolate(filterMyTable())
+  
+      newDfOrig <- dlply(myFilteredDF %>% melt(id.vars="id"), .(variable), makeDFTable)    
       
       myVals <- isolate(reactiveValuesToList(selectedRows))
       
@@ -89,7 +91,7 @@ shinyServer(function(input, output, session) {
                         useRows <- 1:nrow(dfOrig[[x]])
                       }
   
-                      dfTableUpdate(dfOrig[[x]], useRows, x, useTable)
+                      dfTableUpdate(dfOrig[[x]], useRows, x, useTable, newDfOrig=newDfOrig)
                       # }                  
                     })
       
