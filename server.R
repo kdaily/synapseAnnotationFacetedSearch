@@ -108,7 +108,7 @@ shinyServer(function(input, output, session) {
                        function(x) {
                          foo <- tmp[[x]] %>% select(-n)
                          # colnames(foo) <- NULL
-                         DT::renderDataTable(foo, server = TRUE,
+                         DT::renderDataTable(foo, server = FALSE,
                                              rownames=FALSE,
                                              colnames=NULL,
                                              options = list(
@@ -171,7 +171,7 @@ shinyServer(function(input, output, session) {
     })
     
     output$x2 <- DT::renderDataTable(filterMyTable() %>% select(synapseid, everything(), -id, -link),
-                                     server=TRUE,
+                                     server=FALSE,
                                      extensions = 'ColVis',
                                      rownames=FALSE,
                                      options = list(
