@@ -193,6 +193,20 @@ shinyServer(function(input, output, session) {
       }
     )
     
+    observeEvent(
+      eventExpr = input$resetButton, {
+        # reset stuff
+        cat("clicked reset", file=stderr())
+        
+        lapply(colsUsed,
+               function(x) {
+                 myProxy <- DT::dataTableProxy(x, session)
+                 DT::selectRows(myProxy, NULL)
+                 selectedRows[[x]] <- NULL
+               })
+        
+      })
+    
   })
   
 })
