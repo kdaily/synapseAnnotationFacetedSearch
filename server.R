@@ -25,6 +25,19 @@ shinyServer(function(input, output, session) {
     sprintf("Logged in as %s", p@userName)
   })
 
+  observeEvent(
+    eventExpr = input$resetButton, {
+      # reset stuff
+      cat("clicked reset", file=stderr())
+      
+      lapply(colsUsed,
+             function(x) {
+               myProxy <- DT::dataTableProxy(x, session)
+               DT::selectRows(myProxy, NULL)
+               selectedRows[[x]] <- NULL
+             })
+      
+    })
   # Update data in each of the filtering tables based on currently selected
   # things
   updateFilterTables <- reactive({

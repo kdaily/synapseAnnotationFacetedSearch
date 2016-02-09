@@ -16,6 +16,7 @@ shinyUI(fluidPage(
   # Sidebar
   sidebarLayout(
     sidebarPanel(width=3,
+                 actionButton("resetButton", "Reset"),
                  uiOutput("x1")
     ),
 
