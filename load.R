@@ -10,12 +10,12 @@ queryString <- sprintf("select id,%s from file where projectId=='%s'",
                        paste(colsUsed, collapse=","),
                        projectId)
 
-# dfData <- synQuery(queryString, 450)$collectAll()
-# colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
-# 
+dfData <- synQuery(queryString, 450)$collectAll()
+colnames(dfData) <- gsub('file\\.', '', colnames(dfData))
+
 # save(dfData, file="dfData.RData")
 
-load("dfData.RData")
+# load("dfData.RData")
 
 dfData <- dfData %>%
   mutate(link=sprintf("https://www.synapse.org/#!Synapse:%s", id),
