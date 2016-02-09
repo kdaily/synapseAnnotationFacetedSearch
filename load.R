@@ -1,4 +1,5 @@
-projectId <- "syn2787333"
+# projectId <- "syn2787333"
+projectId <- "syn4921369"
 
 colsUsed <- c("study", "organism", "disease",
               "tissueType", "cellType", "treatmentType",
